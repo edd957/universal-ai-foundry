@@ -1,0 +1,11 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8010:8010"
+    volumes:
+      - ./runs:/app/runs
+      - ./examples:/app/examples
+    environment:
+      - UAF_WORKSPACE=/app/runs
+
