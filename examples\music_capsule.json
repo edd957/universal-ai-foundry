@@ -1,0 +1,43 @@
+{
+  "name": "example-music-generator",
+  "version": "0.1.0",
+  "modality": "audio",
+  "method": "spectrogram_diffusion",
+  "description": "Example local music generation capsule.",
+  "dataset": {
+    "path": "datasets/audio",
+    "format": "audio-folder",
+    "license": "cc-by-4.0",
+    "contains_personal_data": false,
+    "synthetic_allowed": true
+  },
+  "model": {
+    "base_model": "local/audio-base",
+    "output_dir": "outputs/music",
+    "trust_remote_code": false,
+    "revision": null
+  },
+  "resources": {
+    "gpu_memory_gb": 16,
+    "max_training_hours": 8,
+    "mixed_precision": "bf16",
+    "gradient_checkpointing": true
+  },
+  "safety": {
+    "allow_remote_code": false,
+    "require_dataset_license": true,
+    "block_secret_patterns": true,
+    "allow_network_downloads": false,
+    "require_human_review_before_run": true
+  },
+  "training_arguments": {
+    "sample_rate": 44100,
+    "clip_seconds": 10,
+    "steps": 2000
+  },
+  "commands": [
+    "python recipes/audio_prepare.py --capsule capsule.json",
+    "python recipes/music_train.py --capsule capsule.json"
+  ]
+}
+
