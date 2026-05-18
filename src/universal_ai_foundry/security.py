@@ -113,18 +113,18 @@ def _check_resources(manifest: CapsuleManifest, findings: list[SecurityFinding])
 def _check_commands(manifest: CapsuleManifest, findings: list[SecurityFinding]) -> None:
     for command in manifest.commands:
         lower = command.lower()
-        for pattern in RISKY_COMMAND_PATTERNS:
-            if pattern in lower:
+        for risky_pattern in RISKY_COMMAND_PATTERNS:
+            if risky_pattern in lower:
                 findings.append(
                     SecurityFinding(
                         severity="high",
                         code="RISKY_COMMAND",
-                        message=f"Command contains risky pattern '{pattern.strip()}': {command}",
+                        message=f"Command contains risky pattern '{risky_pattern.strip()}': {command}",
                     )
                 )
         if manifest.safety.block_secret_patterns:
-            for pattern in SECRET_PATTERNS:
-                if pattern.search(command):
+            for secret_pattern in SECRET_PATTERNS:
+                if secret_pattern.search(command):
                     findings.append(
                         SecurityFinding(
                             severity="high",
@@ -132,4 +132,3 @@ def _check_commands(manifest: CapsuleManifest, findings: list[SecurityFinding]) 
                             message=f"Command appears to contain a secret-like token: {command}",
                         )
                     )
-
