@@ -1,0 +1,19 @@
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+COPY pyproject.toml README.md ./
+COPY src ./src
+COPY docs ./docs
+COPY examples ./examples
+
+RUN pip install --upgrade pip && pip install -e .
+
+EXPOSE 8010
+
+CMD ["uvicorn", "universal_ai_foundry.api.main:app", "--host", "0.0.0.0", "--port", "8010"]
+
