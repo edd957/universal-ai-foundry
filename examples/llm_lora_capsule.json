@@ -1,0 +1,43 @@
+{
+  "name": "example-llm-lora",
+  "version": "0.1.0",
+  "modality": "llm",
+  "method": "lora",
+  "description": "Example local LLM LoRA capsule.",
+  "dataset": {
+    "path": "datasets/instructions.jsonl",
+    "format": "jsonl",
+    "license": "cc-by-4.0",
+    "contains_personal_data": false,
+    "synthetic_allowed": true
+  },
+  "model": {
+    "base_model": "local-or-huggingface/base-llm",
+    "output_dir": "outputs/llm-lora",
+    "trust_remote_code": false,
+    "revision": null
+  },
+  "resources": {
+    "gpu_memory_gb": 16,
+    "max_training_hours": 6,
+    "mixed_precision": "bf16",
+    "gradient_checkpointing": true
+  },
+  "safety": {
+    "allow_remote_code": false,
+    "require_dataset_license": true,
+    "block_secret_patterns": true,
+    "allow_network_downloads": false,
+    "require_human_review_before_run": true
+  },
+  "training_arguments": {
+    "learning_rate": 0.0002,
+    "epochs": 3,
+    "rank": 16
+  },
+  "commands": [
+    "python recipes/llm_lora_train.py --capsule capsule.json",
+    "python recipes/export_adapter.py --capsule capsule.json"
+  ]
+}
+
