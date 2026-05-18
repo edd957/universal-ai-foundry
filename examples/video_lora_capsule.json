@@ -1,0 +1,43 @@
+{
+  "name": "example-video-lora",
+  "version": "0.1.0",
+  "modality": "video",
+  "method": "video_lora",
+  "description": "Example local short-video generation capsule.",
+  "dataset": {
+    "path": "datasets/videos",
+    "format": "video-folder",
+    "license": "cc-by-4.0",
+    "contains_personal_data": false,
+    "synthetic_allowed": true
+  },
+  "model": {
+    "base_model": "local/video-base",
+    "output_dir": "outputs/video",
+    "trust_remote_code": false,
+    "revision": null
+  },
+  "resources": {
+    "gpu_memory_gb": 24,
+    "max_training_hours": 12,
+    "mixed_precision": "bf16",
+    "gradient_checkpointing": true
+  },
+  "safety": {
+    "allow_remote_code": false,
+    "require_dataset_license": true,
+    "block_secret_patterns": true,
+    "allow_network_downloads": false,
+    "require_human_review_before_run": true
+  },
+  "training_arguments": {
+    "frames": 16,
+    "resolution": 512,
+    "steps": 1500
+  },
+  "commands": [
+    "python recipes/video_prepare.py --capsule capsule.json",
+    "python recipes/video_lora_train.py --capsule capsule.json"
+  ]
+}
+
