@@ -13,11 +13,11 @@ def main() -> None:
     output_dir = Path(manifest["model"]["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "TRAINING_PLAN.md").write_text(
-        "# Music Generation Training Plan\n\nInstall `.[audio]` and connect approved audio training code here.\n",
+        "# Music Generation Training Plan\n\n"
+        "Install `.[audio]` and connect approved audio training code here.\n",
         encoding="utf-8",
     )
 
 
 if __name__ == "__main__":
     main()
-
