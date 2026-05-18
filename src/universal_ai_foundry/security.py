@@ -119,7 +119,10 @@ def _check_commands(manifest: CapsuleManifest, findings: list[SecurityFinding]) 
                     SecurityFinding(
                         severity="high",
                         code="RISKY_COMMAND",
-                        message=f"Command contains risky pattern '{risky_pattern.strip()}': {command}",
+                        message=(
+                            f"Command contains risky pattern "
+                            f"'{risky_pattern.strip()}': {command}"
+                        ),
                     )
                 )
         if manifest.safety.block_secret_patterns:
