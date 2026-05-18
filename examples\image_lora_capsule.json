@@ -1,0 +1,43 @@
+{
+  "name": "example-image-lora",
+  "version": "0.1.0",
+  "modality": "image",
+  "method": "diffusion_lora",
+  "description": "Example local image diffusion LoRA capsule.",
+  "dataset": {
+    "path": "datasets/images",
+    "format": "image-folder",
+    "license": "cc-by-4.0",
+    "contains_personal_data": false,
+    "synthetic_allowed": true
+  },
+  "model": {
+    "base_model": "local-or-huggingface/base-diffusion",
+    "output_dir": "outputs/image",
+    "trust_remote_code": false,
+    "revision": null
+  },
+  "resources": {
+    "gpu_memory_gb": 12,
+    "max_training_hours": 5,
+    "mixed_precision": "bf16",
+    "gradient_checkpointing": true
+  },
+  "safety": {
+    "allow_remote_code": false,
+    "require_dataset_license": true,
+    "block_secret_patterns": true,
+    "allow_network_downloads": false,
+    "require_human_review_before_run": true
+  },
+  "training_arguments": {
+    "learning_rate": 0.0001,
+    "steps": 1000,
+    "resolution": 768
+  },
+  "commands": [
+    "python recipes/image_lora_train.py --capsule capsule.json",
+    "python recipes/export_safetensors.py --capsule capsule.json"
+  ]
+}
+
